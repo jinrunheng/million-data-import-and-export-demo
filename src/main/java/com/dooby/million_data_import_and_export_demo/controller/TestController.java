@@ -17,7 +17,7 @@ public class TestController {
     private FileService fileService;
 
     @GetMapping("/test")
-    public String send() {
+    public String test() {
         fileService.exportFile();
         return "success";
     }
