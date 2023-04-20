@@ -28,6 +28,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-amqp:2.7.5'
     // easyexcel
     implementation group: 'com.alibaba', name: 'easyexcel', version: '3.2.1'
+    // aliyun-sdk-oss
+    implementation group: 'com.aliyun.oss', name: 'aliyun-sdk-oss', version: '3.14.0'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
