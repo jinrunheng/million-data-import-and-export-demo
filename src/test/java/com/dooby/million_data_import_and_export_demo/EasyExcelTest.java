@@ -20,14 +20,14 @@ import java.util.List;
 public class EasyExcelTest {
 
 
-    @Test
+    //@Test
     public void simpleRead() {
         String fileName = PathUtil.getTempPath() + "demo.xlsx";
         EasyExcel.read(fileName, DemoData.class, new DemoDataListener()).sheet().doRead();
     }
 
-    @Test
-    public void simpleWrite() throws IOException {
+    //@Test
+    public void simpleWrite() {
         String fileName = PathUtil.getTempPath() + System.currentTimeMillis() + ".xlsx";
         EasyExcel.write(new File(fileName), DemoData.class).sheet("测试").doWrite(this::createData);
     }

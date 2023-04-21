@@ -30,6 +30,12 @@ dependencies {
     implementation group: 'com.alibaba', name: 'easyexcel', version: '3.2.1'
     // aliyun-sdk-oss
     implementation group: 'com.aliyun.oss', name: 'aliyun-sdk-oss', version: '3.14.0'
+    // jdbc
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc:2.7.5'
+    // alibaba druid
+    implementation 'com.alibaba:druid-spring-boot-starter:1.2.8'
+    // mysql connector
+    runtimeOnly 'mysql:mysql-connector-java:8.0.16'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
