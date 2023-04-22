@@ -1,5 +1,6 @@
 package com.dooby.million_data_import_and_export_demo;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dooby.million_data_import_and_export_demo.entity.User;
 import com.dooby.million_data_import_and_export_demo.service.IUserService;
 import com.dooby.million_data_import_and_export_demo.utils.RandomUtil;
@@ -10,7 +11,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @Author Dooby Kim
@@ -46,5 +46,14 @@ public class MyBatisPlusTest {
     public void testSelect() {
         List<User> list = userService.list();
         Assertions.assertEquals(1000, list.size());
+    }
+
+    @Test
+    public void testPage() {
+        Page<User> page = new Page<>(2, 100);
+        Page<User> pageResult = userService.page(page);
+        System.out.println(pageResult.getCurrent());
+        System.out.println(pageResult.getSize());
+        System.out.println(pageResult.getRecords());
     }
 }
