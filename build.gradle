@@ -36,6 +36,8 @@ dependencies {
     implementation 'com.alibaba:druid-spring-boot-starter:1.2.8'
     // mysql connector
     runtimeOnly 'mysql:mysql-connector-java:8.0.16'
+    // mybatis-plus
+    implementation 'com.baomidou:mybatis-plus-boot-starter:3.5.2'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }

@@ -1,4 +1,4 @@
-package com.dooby.million_data_import_and_export_demo.service;
+package com.dooby.million_data_import_and_export_demo.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
@@ -12,12 +12,6 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class FileService {
-
-    @Async
-    public void importFile() {
-        log.info("import file");
-    }
-
 
     @Async
     public void exportFile() {
