@@ -1,6 +1,7 @@
 package com.dooby.million_data_import_and_export_demo.controller;
 
 import com.dooby.million_data_import_and_export_demo.service.impl.FileService;
+import com.dooby.million_data_import_and_export_demo.service.impl.MessageSender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,9 +17,18 @@ public class TestController {
     @Autowired
     private FileService fileService;
 
+    @Autowired
+    private MessageSender messageSender;
+
     @GetMapping("/test")
     public String test() {
         fileService.exportFile();
+        return "success";
+    }
+
+    @GetMapping("/send")
+    public String sendMsg() {
+        messageSender.sendMsg("test");
         return "success";
     }
 }

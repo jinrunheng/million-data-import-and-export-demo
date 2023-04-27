@@ -21,5 +21,6 @@ public class MessageReceiver {
     @RabbitListener(queues = RabbitConfig.BUSINESS_QUEUE)
     public void receive(Message message, Channel channel) throws IOException {
         String msg = new String(message.getBody());
+        log.info("receive message : {}", msg);
     }
 }
