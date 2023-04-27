@@ -17,6 +17,9 @@ public class MessageSender {
     private RabbitTemplate rabbitTemplate;
 
     public void sendMsg(String msg) {
-        rabbitTemplate.convertAndSend(RabbitConfig.BUSINESS_EXCHANGE, RabbitConfig.BUSINESS_ROUTING_KEY, msg);
+        rabbitTemplate.convertSendAndReceive(
+                RabbitConfig.BUSINESS_EXCHANGE,
+                RabbitConfig.BUSINESS_ROUTING_KEY,
+                msg);
     }
 }

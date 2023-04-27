@@ -22,9 +22,12 @@ import java.util.Map;
 @Slf4j
 public class RabbitConfig {
 
+    // 发送导出 Excel 请求时调用
     public static final String BUSINESS_QUEUE = "queue.business";
     public static final String BUSINESS_EXCHANGE = "exchange.business";
     public static final String BUSINESS_ROUTING_KEY = "key.business";
+
+    // 下载完毕回传消息时调用
 
     // 死信
     public static final String DEAD_LETTER_QUEUE = "queue.deadletter";
@@ -86,12 +89,14 @@ public class RabbitConfig {
     @Bean
     public Binding businessBinding(
             @Qualifier("businessQueue") Queue queue,
-            @Qualifier("deadletterExchange") DirectExchange exchange) {
+            @Qualifier("businessExchange") DirectExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(BUSINESS_ROUTING_KEY);
     }
 
     @Bean
-    public Binding deadletterBinding(@Qualifier("deadletterQueue") Queue queue, @Qualifier("deadletterExchange") DirectExchange exchange) {
+    public Binding deadletterBinding(
+            @Qualifier("deadletterQueue") Queue queue,
+            @Qualifier("deadletterExchange") DirectExchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(DEAD_LETTER_ROUTING_KEY);
     }
 
