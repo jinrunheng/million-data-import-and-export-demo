@@ -9,6 +9,7 @@ import com.dooby.million_data_import_and_export_demo.service.impl.MessageSender;
 import com.dooby.million_data_import_and_export_demo.utils.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -36,13 +37,14 @@ public class TestController {
     @ResponseBody
     public Result<Status> sendMsg() {
         String seq = UUID.randomUUID().toString();
-        // messageSender.sendMsg(seq);
         // 设置状态为"文件导出中"
         Status status = Status.builder()
                 .seq(seq)
                 .status(StatusEnum.EXPORTING)
                 .build();
         statusService.save(status);
+        // 异步处理
+        messageSender.sendMsg(seq);
         return Result.ok("文件导出中", status);
     }
 

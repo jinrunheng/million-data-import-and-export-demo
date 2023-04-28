@@ -22,7 +22,6 @@ public class MyBatisPlusTest {
     @Autowired
     private IUserService userService;
 
-
     @Test
     public void testSaveBatch() {
         List<User> list = new ArrayList<>();
@@ -49,10 +48,13 @@ public class MyBatisPlusTest {
 
     @Test
     public void testPage() {
-        Page<User> page = new Page<>(2, 100);
+        // 从第 2 页开始，每页 10 条
+        Page<User> page = new Page<>(1, 10);
         Page<User> pageResult = userService.page(page);
-        System.out.println(pageResult.getCurrent());
-        System.out.println(pageResult.getSize());
         System.out.println(pageResult.getRecords());
+//        long pages = pageResult.getPages();
+//        System.out.println(pages);
+//        System.out.println(pageResult.getCurrent());
+//        System.out.println(pageResult.getSize());
     }
 }

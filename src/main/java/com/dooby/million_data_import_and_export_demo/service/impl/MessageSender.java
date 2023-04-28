@@ -3,6 +3,7 @@ package com.dooby.million_data_import_and_export_demo.service.impl;
 import com.dooby.million_data_import_and_export_demo.config.RabbitConfig;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 /**
@@ -16,6 +17,7 @@ public class MessageSender {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
+    @Async
     public void sendMsg(String msg) {
         rabbitTemplate.convertSendAndReceive(
                 RabbitConfig.BUSINESS_EXCHANGE,
