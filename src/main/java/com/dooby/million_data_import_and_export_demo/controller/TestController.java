@@ -1,21 +1,18 @@
 package com.dooby.million_data_import_and_export_demo.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.dooby.million_data_import_and_export_demo.config.RabbitConfig;
 import com.dooby.million_data_import_and_export_demo.entity.Status;
-import com.dooby.million_data_import_and_export_demo.entity.User;
 import com.dooby.million_data_import_and_export_demo.enummeration.StatusEnum;
 import com.dooby.million_data_import_and_export_demo.service.IStatusService;
-import com.dooby.million_data_import_and_export_demo.service.impl.MessageSender;
 import com.dooby.million_data_import_and_export_demo.utils.Result;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -28,10 +25,10 @@ import java.util.UUID;
 public class TestController {
 
     @Autowired
-    private MessageSender messageSender;
+    private IStatusService statusService;
 
     @Autowired
-    private IStatusService statusService;
+    private RabbitTemplate rabbitTemplate;
 
     @PostMapping("/send")
     @ResponseBody
@@ -44,7 +41,12 @@ public class TestController {
                 .build();
         statusService.save(status);
         // 异步处理
-        messageSender.sendMsg(seq);
+        // messageSender.sendMsg(seq);
+        rabbitTemplate.convertSendAndReceive(
+                RabbitConfig.BUSINESS_EXCHANGE,
+                RabbitConfig.BUSINESS_ROUTING_KEY,
+                seq);
+
         return Result.ok("文件导出中", status);
     }
 

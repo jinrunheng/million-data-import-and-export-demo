@@ -27,8 +27,6 @@ public class RabbitConfig {
     public static final String BUSINESS_EXCHANGE = "exchange.business";
     public static final String BUSINESS_ROUTING_KEY = "key.business";
 
-    // 下载完毕回传消息时调用
-
     // 死信
     public static final String DEAD_LETTER_QUEUE = "queue.deadletter";
     public static final String DEAD_LETTER_EXCHANGE = "exchange.deadletter";

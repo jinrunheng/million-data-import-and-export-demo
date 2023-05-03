@@ -1,7 +1,6 @@
 package com.dooby.million_data_import_and_export_demo.service.impl;
 
 import com.alibaba.excel.EasyExcel;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dooby.million_data_import_and_export_demo.config.RabbitConfig;
 import com.dooby.million_data_import_and_export_demo.entity.Status;
@@ -13,7 +12,6 @@ import com.dooby.million_data_import_and_export_demo.utils.PathUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -34,9 +32,6 @@ public class MessageReceiver {
 
     @Autowired
     private OssService ossService;
-
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
 
     @Autowired
     private IStatusService statusService;
