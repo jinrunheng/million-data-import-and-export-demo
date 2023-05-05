@@ -9,6 +9,7 @@ import com.dooby.million_data_import_and_export_demo.enummeration.StatusEnum;
 import com.dooby.million_data_import_and_export_demo.service.IStatusService;
 import com.dooby.million_data_import_and_export_demo.service.IUserService;
 import com.dooby.million_data_import_and_export_demo.utils.PathUtil;
+import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -36,8 +37,8 @@ public class MessageReceiver {
     @Autowired
     private IStatusService statusService;
 
-    @RabbitListener(queues = RabbitConfig.BUSINESS_QUEUE)
-    public void receive(Message message) {
+    @RabbitListener(queues = RabbitConfig.BUSINESS_QUEUE, ackMode = "MANUAL")
+    public void receive(Message message, Channel channel) {
         // 发送的消息即为状态序列号
         String seq = new String(message.getBody());
         try {
@@ -67,9 +68,11 @@ public class MessageReceiver {
             Status updateStatus = Status.builder()
                     .seq(seq)
                     .status(StatusEnum.EXPORT_SUCCESS)
-                    .path(excelPath).build();
+                    .path(null).build();
             // update status
             statusService.updateById(updateStatus);
+            // 消费端手动确认
+            channel.basicAck(message.getMessageProperties().getDeliveryTag(), false);
             log.info("upload success");
         } catch (Exception e) {
             log.error("error", e);
